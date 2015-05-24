@@ -1,3 +1,4 @@
+require 'githop/command'
 require 'githop/version'
 
 require 'active_support/time'
@@ -8,8 +9,7 @@ require 'yaml'
 module GitHop
   private
 
-  def self.build_query_2014(gh_user)
-    end_date = 1.year.ago
+  def self.build_query_2014(gh_user, end_date)
     month = end_date.strftime('%Y%m')
     end_date = end_date.strftime('%Y-%m-%d')
 
@@ -24,8 +24,7 @@ END
     query
   end
 
-  def self.build_query_2015(gh_user)
-    end_date = 1.year.ago
+  def self.build_query_2015(gh_user, end_date)
     start_date = (end_date - 1.day).strftime('%Y-%m-%d')
     end_date = end_date.strftime('%Y-%m-%d')
 
@@ -50,9 +49,9 @@ END
     opts
   end
 
-  def self.hop(config, user = nil)
+  def self.hop(config, user = nil, date = 1.year.ago)
     bq = BigQuery::Client.new(client_options(config))
-    query = build_query_2014(user || config['github_user'])
+    query = build_query_2014(user || config['github_user'], date)
     result = bq.query(query)
 
     # File.open('bigquery-sample.marshal', 'w') { |to_file| Marshal.dump(result, to_file) }
