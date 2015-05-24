@@ -7,7 +7,7 @@ show you the things you did exactly one year ago.
 
 ## Usage
 
-If you are orta and it is 24th of May, 2015, you might see something like this:
+If you are orta and it is 24th of May, 2014, you might see something like this:
 
 ```bash
 $ ./githop.rb 
