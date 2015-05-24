@@ -17,6 +17,14 @@ At 2014-05-24 22:03:42, you created a PR on CocoaPods/cocoadocs.org
 At 2014-05-24 22:32:20, you created the tag 2.7.2 on orta/ARAnalytics
 ```
 
+or specify a username to see another person's history:
+
+```bash
+$ githop jpsim
+At 2014-05-24 10:15:34, jpsim watched the repo shahruz/Sketch-Toolbox
+At 2014-05-24 10:18:35, jpsim watched the repo heardrwt/RHObjectiveBeagle
+```
+
 ## Installation
 
 Use

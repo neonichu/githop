@@ -50,9 +50,9 @@ END
     opts
   end
 
-  def self.hop(config)
+  def self.hop(config, user = nil)
     bq = BigQuery::Client.new(client_options(config))
-    query = build_query_2014(config['github_user'])
+    query = build_query_2014(user || config['github_user'])
     result = bq.query(query)
 
     # File.open('bigquery-sample.marshal', 'w') { |to_file| Marshal.dump(result, to_file) }
@@ -69,11 +69,12 @@ END
       'IssueCommentEvent' => 'commented an issue on',
       'IssuesEvent' => 'created an issue on',
       'PullRequestEvent' => 'created a PR on',
-      'PushEvent' => 'pushed commits to'
+      'PushEvent' => 'pushed commits to',
+      'WatchEvent' => 'watched the repo'
     }
   end
 
-  def self.pretty_print(result)
+  def self.pretty_print(result, user = nil)
     result['rows'].map { |row| row['f'] }.map do |event|
       type, owner, repo, created_at = event[0]['v'], event[1]['v'], event[2]['v'], event[3]['v']
       _, _, ref, ref_type = event[4]['v'], event[5]['v'], event[6]['v'], event[7]['v']
@@ -89,7 +90,7 @@ END
         action += " #{ref} on" if ref_type != 'repository'
       end
 
-      "At #{created_at}, you #{action} #{owner}/#{repo}"
+      "At #{created_at}, #{user || 'you'} #{action} #{owner}/#{repo}"
     end.compact
   end
 end
