@@ -75,22 +75,30 @@ END
   end
 
   def self.pretty_print(result, user = nil)
+    pushed_repos = []
+
     result['rows'].map { |row| row['f'] }.map do |event|
       type, owner, repo, created_at = event[0]['v'], event[1]['v'], event[2]['v'], event[3]['v']
       _, _, ref, ref_type = event[4]['v'], event[5]['v'], event[6]['v'], event[7]['v']
 
       # Filter some not so interesting events
-      next if %w(IssueCommentEvent IssuesEvent PushEvent).include?(type)
+      next if %w(IssueCommentEvent IssuesEvent WatchEvent).include?(type)
 
       action = labels[type]
       fail "Unsupported event type #{type}" if action.nil?
+      target = "#{owner}/#{repo}"
 
       if type == 'CreateEvent'
         action += " #{ref_type}"
         action += " #{ref} on" if ref_type != 'repository'
       end
 
-      "At #{created_at}, #{user || 'you'} #{action} #{owner}/#{repo}"
+      if type == 'PushEvent'
+        next if pushed_repos.include?(target)
+        pushed_repos << target
+      end
+
+      "At #{created_at}, #{user || 'you'} #{action} #{target}"
     end.compact
   end
 end
