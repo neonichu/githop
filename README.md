@@ -25,6 +25,9 @@ At 2014-05-24 10:15:34, jpsim watched the repo shahruz/Sketch-Toolbox
 At 2014-05-24 10:18:35, jpsim watched the repo heardrwt/RHObjectiveBeagle
 ```
 
+For the real lazy, it is also available on the web: <https://githop-yolo.herokuapp.com/orta>, specify
+the desired GitHub user as path.
+
 ## Installation
 
 Use
