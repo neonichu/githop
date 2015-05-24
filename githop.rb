@@ -12,7 +12,8 @@ def build_query_2014(gh_user)
 	end_date = end_date.strftime('%Y-%m-%d')
 
 	query = <<END
-SELECT type, repository_owner, repository_name, created_at, payload_url, payload_desc, 
+SELECT type, repository_owner, repository_name, created_at, payload_url, payload_desc, payload_ref,
+payload_ref_type
 FROM ([githubarchive:month.#{month}]) 
 WHERE actor = '#{gh_user}' AND
 (created_at LIKE '#{end_date}%')
@@ -49,7 +50,7 @@ end
 
 def labels
 	{
-		'CreateEvent' => 'created the repo',
+		'CreateEvent' => 'created the',
 		'ForkEvent' => 'forked the repo',
 		'IssueCommentEvent' => 'commented an issue on',
 		'IssuesEvent' => 'created an issue on',
@@ -66,9 +67,11 @@ result = bq.query(query)
 
 #File.open('bigquery-sample.marshal', 'w') { |to_file| Marshal.dump(result, to_file) }
 #result = File.open('bigquery-sample.marshal', 'r') { |from_file| Marshal.load(from_file) }
+#exit(0)
 
 result['rows'].map { |row| row['f'] }.each do |event|
 	type, owner, repo, created_at = event[0]['v'], event[1]['v'], event[2]['v'], event[3]['v']
+	url, desc, ref, ref_type = event[4]['v'], event[5]['v'], event[6]['v'], event[7]['v']
 
 	# Filter some not so interesting events
 	if ['IssueCommentEvent', 'IssuesEvent', 'PushEvent'].include?(type)
@@ -77,6 +80,11 @@ result['rows'].map { |row| row['f'] }.each do |event|
 
 	action = labels[type]
 	raise type if action.nil?
+
+	if type == 'CreateEvent'
+		action += " #{ref_type}"
+		action += " #{ref} on" if ref_type != 'repository'
+	end
 
 	puts "At #{created_at}, you #{action} #{owner}/#{repo}"
 end

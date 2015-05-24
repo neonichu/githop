@@ -14,7 +14,7 @@ $ ./githop.rb
 At 2014-05-24 11:54:54, you forked the repo cocodelabs/NSAttributedString-CCLFormat
 At 2014-05-24 11:56:49, you created a PR on cocodelabs/NSAttributedString-CCLFormat
 At 2014-05-24 22:03:42, you created a PR on CocoaPods/cocoadocs.org
-At 2014-05-24 22:32:20, you created the repo orta/ARAnalytics
+At 2014-05-24 22:32:20, you created the tag 2.7.2 on orta/ARAnalytics
 ```
 
 ## Installation
