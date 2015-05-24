@@ -5,19 +5,12 @@ module GitHop
     def self.run(other_user, date = 1.year.ago)
       config = YAML.load(File.read("#{ENV['HOME']}/.githop.yml"))
       result = GitHop.hop(config, other_user, date)
+      result = GitHop.pretty_print(result, other_user) unless result['rows'].nil?
 
-      if result['rows'].nil?
-        $stderr.puts "GitHub Archive query for #{other_user || config['github_user']} had no results."
-        $stderr.puts result.inspect
-        exit(1)
-      end
-
-      result = GitHop.pretty_print(result, other_user)
-
-      if result.count == 0
-        puts "No events found, but #{other_user || 'you'} surely had an awesome day nevertheless :)"
-      else
+      if result.is_a?(Array) && result.count > 0
         puts result
+      else
+        puts "No events found, but #{other_user || 'you'} surely had an awesome day nevertheless :)"
       end
     end
   end
