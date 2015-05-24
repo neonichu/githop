@@ -1,6 +1,4 @@
-# githop
-
-🐙⏰
+# githop 🐙⏰
 
 Uses [BigQuery][3] and [GitHub Archive][2] to create something like [TimeHop][4] for GitHub. It will
 show you the things you did exactly one year ago.
@@ -36,7 +34,7 @@ Use
 gem install githop
 ```
 
-to install the it and configure some settings in `~/.githop.yml`:
+to install it and configure some settings in `~/.githop.yml`:
 
 ```yaml
 ---
