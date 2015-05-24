@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    githop (0.0.1)
+      activesupport
+      bigquery
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -48,6 +55,7 @@ GEM
     minitest (5.6.1)
     multi_json (1.11.0)
     multipart-post (2.0.0)
+    rake (10.4.2)
     retriable (1.4.1)
     signet (0.6.0)
       addressable (~> 2.3)
@@ -63,5 +71,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport
-  bigquery
+  bundler (~> 1.7)
+  githop!
+  rake (~> 10.0)
