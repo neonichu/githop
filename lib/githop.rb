@@ -64,6 +64,7 @@ END
   def self.labels
     {
       'CreateEvent' => 'created the',
+      'DeleteEvent' => 'deleted the',
       'ForkEvent' => 'forked the repo',
       'IssueCommentEvent' => 'commented an issue on',
       'IssuesEvent' => 'created an issue on',
@@ -90,6 +91,10 @@ END
       if type == 'CreateEvent'
         action += " #{ref_type}"
         action += " #{ref} on" if ref_type != 'repository'
+      end
+
+      if type == 'DeleteEvent'
+        action += " #{ref_type} #{ref} on"
       end
 
       if type == 'PushEvent'
