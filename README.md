@@ -10,7 +10,7 @@ show you the things you did exactly one year ago.
 If you are orta and it is 24th of May, 2015, you might see something like this:
 
 ```bash
-$ ./githop.rb 
+$ githop
 At 2014-05-24 11:54:54, you forked the repo cocodelabs/NSAttributedString-CCLFormat
 At 2014-05-24 11:56:49, you created a PR on cocodelabs/NSAttributedString-CCLFormat
 At 2014-05-24 22:03:42, you created a PR on CocoaPods/cocoadocs.org
@@ -22,10 +22,10 @@ At 2014-05-24 22:32:20, you created the tag 2.7.2 on orta/ARAnalytics
 Use
 
 ```bash
-bundle install
+gem install githop
 ```
 
-to install the dependencies and configure some settings in `~/.githop.yml`:
+to install the it and configure some settings in `~/.githop.yml`:
 
 ```yaml
 ---
