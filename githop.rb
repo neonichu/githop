@@ -3,8 +3,7 @@
 require 'active_support/time'
 require 'big_query'
 require 'json'
-
-YOUR_GH_USER='neonichu'
+require 'yaml'
 
 def build_query_2014(gh_user)
 	end_date = 1.year.ago
@@ -37,14 +36,12 @@ WHERE actor.login = '#{gh_user}' ORDER BY created_at;
 END
 end
 
-## Set up some BigQuery stuff, see https://github.com/abronte/BigQuery#keys
-## Also take a look at https://www.githubarchive.org/#bigquery
-def client_options
+def client_options(config)
 	opts = {}
-	opts['client_id']     = 'OAuth Client ID'
-	opts['service_email'] = 'Service E-Mail'
-	opts['key']           = "/path/toprivatekey.p12"
-	opts['project_id']    = 'Project ID'
+	opts['client_id']     = config['bigquery']['client_id']
+	opts['service_email'] = config['bigquery']['service_email']
+	opts['key']           = config['bigquery']['keyfile']
+	opts['project_id']    = config['bigquery']['project_id']
 	opts
 end
 
@@ -61,13 +58,22 @@ end
 
 #######
 
-bq = BigQuery::Client.new(client_options)
-query = build_query_2014(YOUR_GH_USER)
+config = YAML.load(File.read("#{ENV['HOME']}/.githop.yml"))
+user = config['github_user']
+
+bq = BigQuery::Client.new(client_options(config))
+query = build_query_2014(user)
 result = bq.query(query)
 
 #File.open('bigquery-sample.marshal', 'w') { |to_file| Marshal.dump(result, to_file) }
-#result = File.open('bigquery-sample.marshal', 'r') { |from_file| Marshal.load(from_file) }
 #exit(0)
+#result = File.open('bigquery-sample.marshal', 'r') { |from_file| Marshal.load(from_file) }
+
+if result['rows'].nil?
+	$stderr.puts "GitHub Archive query for #{user} had no results."
+	$stderr.puts result.inspect
+	exit(1)
+end
 
 result['rows'].map { |row| row['f'] }.each do |event|
 	type, owner, repo, created_at = event[0]['v'], event[1]['v'], event[2]['v'], event[3]['v']

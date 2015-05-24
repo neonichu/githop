@@ -25,8 +25,23 @@ Use
 bundle install
 ```
 
-to install the dependencies. The rest is quite manual at the moment, you have to add your [BigQuery][3]
-credentials to `githop.rb` and also change the `YOUR_GH_USER` variable in that script.
+to install the dependencies and configure some settings in `~/.githop.yml`:
+
+```yaml
+---
+github_user: your GitHub username
+
+bigquery: {
+	client_id: BigQuery OAuth Client-ID,
+	service_email: BigQuery Service E-Mail,
+	keyfile: Location of your BigQuery key (a .p12 file),
+	project_id: ID of your BigQuery project
+}
+```
+
+Please follow [these steps][5] to set up a [BigQuery][3] OAuth application and take a look at 
+[this][6] for manually verifying your Google Cloud account works. [BigQuery][3] is free for 3TB
+of queries and you don't have to set up any payments to use GitHop.
 
 ## Thanks
 
@@ -36,3 +51,5 @@ Felix Krause for the [idea][1].
 [2]: https://www.githubarchive.org/
 [3]: https://cloud.google.com/bigquery/what-is-bigquery
 [4]: http://timehop.com
+[5]: https://github.com/abronte/BigQuery#keys
+[6]: https://www.githubarchive.org/#bigquery
