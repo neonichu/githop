@@ -63,12 +63,14 @@ END
 
   def self.labels
     {
+      'CommitCommentEvent' => 'commented a commit on the repo',
       'CreateEvent' => 'created the',
       'DeleteEvent' => 'deleted the',
       'ForkEvent' => 'forked the repo',
       'IssueCommentEvent' => 'commented an issue on',
       'IssuesEvent' => 'created an issue on',
       'PullRequestEvent' => 'created a PR on',
+      'PullRequestReviewCommentEvent' => 'commented on a PR on the repo',
       'PushEvent' => 'pushed commits to',
       'WatchEvent' => 'watched the repo'
     }
@@ -82,7 +84,7 @@ END
       _, _, ref, ref_type = event[4]['v'], event[5]['v'], event[6]['v'], event[7]['v']
 
       # Filter some not so interesting events
-      next if %w(IssueCommentEvent IssuesEvent WatchEvent).include?(type)
+      next if %w(CommitCommentEvent IssueCommentEvent IssuesEvent PullRequestReviewCommentEvent WatchEvent).include?(type)
 
       action = labels[type]
       fail "Unsupported event type #{type}" if action.nil?
