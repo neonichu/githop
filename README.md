@@ -24,7 +24,7 @@ At 2014-05-24 10:18:35, jpsim watched the repo heardrwt/RHObjectiveBeagle
 ```
 
 For the real lazy, it is also available on the web: <https://githop-yolo.herokuapp.com/orta>, specify
-the desired GitHub user as path.
+the desired GitHub user as path. Code for the web version can be found [here][7].
 
 ## Installation
 
@@ -62,3 +62,4 @@ Felix Krause for the [idea][1].
 [4]: http://timehop.com
 [5]: https://github.com/abronte/BigQuery#keys
 [6]: https://www.githubarchive.org/#bigquery
+[7]: https://gist.github.com/neonichu/465391e44617bd5975ce
