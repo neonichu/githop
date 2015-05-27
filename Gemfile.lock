@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    githop (0.0.4)
+    githop (0.0.5)
       activesupport
       bigquery
 
