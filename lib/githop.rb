@@ -73,6 +73,7 @@ END
       'PullRequestEvent' => 'created a PR on',
       'PullRequestReviewCommentEvent' => 'commented on a PR on the repo',
       'PushEvent' => 'pushed commits to',
+      'ReleaseEvent' => 'published a new release of',
       'WatchEvent' => 'watched the repo'
     }
   end
