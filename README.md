@@ -1,5 +1,7 @@
 # githop 🐙⏰
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
 Uses [BigQuery][3] and [GitHub Archive][2] to create something like [TimeHop][4] for GitHub. It will
 show you the things you did exactly one year ago.
 
